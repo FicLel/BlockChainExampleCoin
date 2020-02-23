@@ -1,11 +1,11 @@
-import BlockChain
+from BlockChain import BlockChain
 from flask import Flask, jsonify, request
 from uuid import uuid4
 
 app = Flask(__name__)
 
 node_id = str(uuid4()).replace('-', '')
-blockhain = BlockChain()
+blockchain = BlockChain()
 
 # Endpoint for nodes in the network to mine.
 @app.route('/mine', methods=['GET'])

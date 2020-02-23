@@ -20,7 +20,7 @@ class BlockChain(object):
 
     def register_node(self, address):
         parsed_url = urlparse(address)
-        self.nodes.add(parsed_url)
+        self.nodes.add(parsed_url.netloc)
 
     def new_block(self, proof, previous_hash = None):
         block = {
