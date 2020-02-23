@@ -38,7 +38,7 @@ def create_transaction():
 
     # Check that request body has all the required fields.
     if not all (value in values for x in required):
-        return 'Missing required values.', 400
+        return {'error': 'Missing required values.'}, 400
 
     # Create new transaction.
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['quantity'])
@@ -63,10 +63,10 @@ def register_node():
 
     nodes_to_register = values.get('nodes')
 
-    if nodes is None:
-        return "No nodes registered.", 400
+    if nodes_to_register is None:
+        return {'error': 'No nodes registered.'}, 400
 
-    for node in nodes:
+    for node in nodes_to_register:
         # Register nodes.
         return 0
 
@@ -78,7 +78,7 @@ def register_node():
 
 @app.route('/consensus', methods=['GET'])
 def consensus():
-    replaced = 'put blockchain.consensus here'
+    replaced = blockchain.resolve()
 
     if replaced:
         response = {
