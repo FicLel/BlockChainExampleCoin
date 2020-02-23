@@ -10,6 +10,8 @@ class BlockChain(object):
         self.current_transactions = []
         self.nodes = set()
 
+        self.new_block(previous_hash = 1, proof = 100)
+
     def proof_of_work(self, last_proof):
         proof = 0
 
@@ -26,8 +28,9 @@ class BlockChain(object):
         block = {
             'index': len(self.chain) + 1,
             'timestamp': time(),
-            'transactions': self.current_transacctions,
-            'proof': proof
+            'transactions': self.current_transactions,
+            'proof': proof,
+            'previous_hash': previous_hash or self.hash(self.chain[-1])
         }
 
         self.current_transactions = []
@@ -36,11 +39,11 @@ class BlockChain(object):
 
         return block
 
-    def new_transaction(self, sender, recipient, amount):
+    def new_transaction(self, sender, recipient, quantity):
         self.current_transactions.append({
             'sender' : sender,
             'recipient' : recipient,
-            'amount' : amount
+            'amount' : quantity,
         })
         
         return self.last_block['index'] + 1

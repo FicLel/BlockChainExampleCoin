@@ -10,14 +10,14 @@ blockchain = BlockChain()
 # Endpoint for nodes in the network to mine.
 @app.route('/mine', methods=['GET'])
 def mine():
-    last_block = blockchaing.last_block
+    last_block = blockchain.last_block
     last_proof = last_block['proof']
     proof = blockchain.proof_of_work(last_proof)
 
     blockchain.new_transaction(sender = "0", recipient = node_id, quantity = 1)
 
     previous_hash = blockchain.hash(last_block)
-    block = blockhain.new_block(proof, previous_hash)
+    block = blockchain.new_block(proof, previous_hash)
 
     response = {
         'index': block['index'],
