@@ -78,7 +78,7 @@ class Blockchain(object):
                 length = response.json()['length']
                 chain = response.json()['chain']
 
-                if length > max_length and self.valid_chain(chain):
+                if length > max_length and self.validate_chain(chain):
                     max_length = length
                     new_chain = chain
 
