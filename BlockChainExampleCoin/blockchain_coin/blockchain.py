@@ -4,7 +4,7 @@ import requests
 from time import time
 from urllib.parse import urlparse
 
-class BlockChain(object):
+class Blockchain(object):
     def __init__(self):
         self.chain = []
         self.current_transactions = []

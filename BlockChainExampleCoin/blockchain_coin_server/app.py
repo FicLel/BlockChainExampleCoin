@@ -1,11 +1,11 @@
-from BlockChain import BlockChain
+from ..blockchain_coin.blockchain import Blockchain
 from flask import Flask, jsonify, request
 from uuid import uuid4
 
 app = Flask(__name__)
 
 node_id = str(uuid4()).replace('-', '')
-blockchain = BlockChain()
+blockchain = Blockchain()
 
 # Endpoint for nodes in the network to mine.
 @app.route('/mine', methods=['GET'])
@@ -94,5 +94,5 @@ def consensus():
     return jsonify(response), 200
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000)
+    app.run(host='0.0.0.0', port=5000)
 
