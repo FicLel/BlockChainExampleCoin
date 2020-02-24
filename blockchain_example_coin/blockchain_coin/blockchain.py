@@ -18,7 +18,7 @@ class Blockchain(object):
         """Uses the proof of work custom algorithm to demonstrate work."""
         proof = 0
 
-        # Find p (See proof of work algorithm).
+        # Find p' (See proof of work algorithm).
         while self.valid_proof(last_proof, proof) is False:
             proof = proof + 1
 
