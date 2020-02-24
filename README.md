@@ -5,15 +5,15 @@
 2. Entrar a la raiz del repositorio.
 3. Crear un nuevo entorno virtual de python version >= 3.8.1 .
 
-`python -venv blockchain_example_coin`
+    `python -venv blockchain_example_coin`
 
 4. Activar el entorno virtual.
 
-`source blockchain_example_coin/bin/activate`
+    `source blockchain_example_coin/bin/activate`
 
 5. Regresar a la raiz del repositiorio y instalar las dependencias que estan en `requirements.txt`
 
-`pip3 install -r requirements.txt`
+    `pip3 install -r requirements.txt`
 
 6. Dentro de `blockchain_coin_server` correr `flask run` para levantar el servidor.
     
