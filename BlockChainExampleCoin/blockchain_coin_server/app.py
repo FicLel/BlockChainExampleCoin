@@ -37,7 +37,7 @@ def create_transaction():
     required = ['sender', 'recipient', 'quantity']
 
     # Check that request body has all the required fields.
-    if not all (value in values for x in required):
+    if not all (value in values for value in required):
         return {'error': 'Missing required values.'}, 400
 
     # Create new transaction.
