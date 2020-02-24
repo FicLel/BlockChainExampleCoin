@@ -66,15 +66,24 @@ def register_node():
     if nodes_to_register is None:
         return {'error': 'No nodes registered.'}, 400
 
+    
+    # Register nodes.
     for node in nodes_to_register:
-        # Register nodes.
-        return 0
+        blockchain.register_node(node)
 
     response = {
-        'nodes': list(blockhain.nodes),
+        'nodes': list(blockchain.nodes),
     }
 
     return jsonify(response), 201
+
+@app.route('/nodes', methods=['GET'])
+def get_nodes():
+    response = {
+        'nodes': list(blockchain.nodes),
+    }
+
+    return jsonify(response), 200
 
 @app.route('/consensus', methods=['GET'])
 def consensus():
