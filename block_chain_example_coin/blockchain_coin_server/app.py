@@ -10,6 +10,7 @@ blockchain = Blockchain()
 # Endpoint for nodes in the network to mine.
 @app.route('/mine', methods=['GET'])
 def mine():
+    """Endpoint that makes the current node (server) mine a block."""
     last_block = blockchain.last_block
     last_proof = last_block['proof']
     proof = blockchain.proof_of_work(last_proof)
@@ -28,9 +29,9 @@ def mine():
 
     return jsonify(response), 200
 
-# Endpoint for clients to make transactions.
 @app.route('/transactions', methods=['POST'])
 def create_transaction():
+    """Endpoint that allows the current node (server) to make a transaction."""
     values = request.get_json()
 
     # Fields that are required in the requests body to create a new transaction.
@@ -47,9 +48,9 @@ def create_transaction():
 
     return jsonify(response), 201
 
-# Endpoint that returns the entire blockchain.
 @app.route('/chain', methods=['GET'])
 def full_chain():
+    """Endpoint that returns the entire blockchain."""
     response = {
         'chain': blockchain.chain,
         'length': len(blockchain.chain),
@@ -59,6 +60,9 @@ def full_chain():
 
 @app.route('/register', methods=['POST'])
 def register_node():
+    """
+    Endpoint that registers a new node/nodes (server/servers) to the current node (server).
+    """
     values = request.get_json()
 
     nodes_to_register = values.get('nodes')
@@ -79,6 +83,7 @@ def register_node():
 
 @app.route('/nodes', methods=['GET'])
 def get_nodes():
+    """Endpoint that returns all the peers of the current node (server)."""
     response = {
         'nodes': list(blockchain.nodes),
     }
@@ -87,6 +92,11 @@ def get_nodes():
 
 @app.route('/consensus', methods=['GET'])
 def consensus():
+    """
+    Endpoint that makes the current node (server)
+    run the consensus algorithm using all the registered
+    peers in the current node (server).
+    """
     replaced = blockchain.resolve()
 
     if replaced:

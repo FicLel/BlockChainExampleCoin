@@ -6,25 +6,31 @@ from urllib.parse import urlparse
 
 class Blockchain(object):
     def __init__(self):
+        """Constructor"""
         self.chain = []
         self.current_transactions = []
         self.nodes = set()
 
+        # Create the genesis block (first block in the blockchain).
         self.new_block(previous_hash = 1, proof = 100)
 
     def proof_of_work(self, last_proof):
+        """Uses the proof of work custom algorithm to demonstrate work."""
         proof = 0
 
+        # Find p (See proof of work algorithm).
         while self.valid_proof(last_proof, proof) is False:
             proof = proof + 1
 
         return proof
 
     def register_node(self, address):
+        """Registers new nodes to the current node."""
         parsed_url = urlparse(address)
         self.nodes.add(parsed_url.netloc)
 
     def new_block(self, proof, previous_hash = None):
+        """Adds a block to the blockchain."""
         block = {
             'index': len(self.chain) + 1,
             'timestamp': time(),
@@ -40,6 +46,7 @@ class Blockchain(object):
         return block
 
     def new_transaction(self, sender, recipient, quantity):
+        """Creates a new transaction and schedules a block for it."""
         self.current_transactions.append({
             'sender' : sender,
             'recipient' : recipient,
@@ -49,6 +56,7 @@ class Blockchain(object):
         return self.last_block['index'] + 1
 
     def validate_chain(self, chain):
+        """Checks that an entire blockchain is valid."""
         last_block = chain[0]
         current_index = 1
 
@@ -67,6 +75,7 @@ class Blockchain(object):
         return True
 
     def resolve(self):
+        """Runs the consensus algorithm, cross-validating with each registered peer (node) in the current node."""
         peers = self.nodes
         new_chain = None
         max_length = len(self.chain)
@@ -90,10 +99,12 @@ class Blockchain(object):
 
     @property
     def last_block(self):
+        """Returns the last block in the blockchain."""
         return self.chain[-1]
 
     @staticmethod
     def hash(block):
+        """Calculates a block's hash."""
         primaryString = json.dumps(block, sort_keys = True).encode()
         hashString = hashlib.sha256(primaryString).hexdigest()
 
@@ -101,6 +112,7 @@ class Blockchain(object):
 
     @staticmethod
     def valid_proof(last_proof, proof):
+        """Verifies that a proof is valid."""
         proof_guess = f'{last_proof}{proof}'.encode()
         proof_guess_hash = hashlib.sha256(proof_guess).hexdigest()
 
