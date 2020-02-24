@@ -36,3 +36,8 @@ Sincroniza la blockchain actual corriendo el algoritmo de consenso para cada uno
     
 ### /nodes
 Retorna la lista de pares registrados en el nodo actual.
+
+## Algoritmo de ***proof of work***.
+***Sea*** ***{ p, p’, h ∈ ℤ+ | h = p ‖ p’ , p = prueba anterior, p' = prueba nueva }***
+
+Tal cual que, al generar un hash sha256 usando ***h***  y luego pasarlo a hexadecimal, resulte en una **cadena que termine con cuatro ceros.**
